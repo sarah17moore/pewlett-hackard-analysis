@@ -10,7 +10,7 @@
 -- # of retiring employees by title
 SELECT e.emp_no, e.first_name, e.last_name,
         t.title, t.from_date, t.to_date
-INTO retirement_titles
+-- INTO retirement_titles
 FROM employees as e 
 INNER JOIN titles as t 
 ON (e.emp_no = t.emp_no)
@@ -33,7 +33,7 @@ ORDER BY e.emp_no ASC;
 -- updated to show only the most recent title
 SELECT DISTINCT ON (rt.emp_no) rt.emp_no, rt.first_name, 
                     rt.last_name, rt.title
-INTO unique_titles
+-- INTO unique_titles
 FROM retirement_titles as rt 
 WHERE to_date = '9999-01-01'
 ORDER BY rt.emp_no ASC, to_date DESC;
@@ -51,7 +51,7 @@ ORDER BY rt.emp_no ASC, to_date DESC;
 -- # of retiring employees by their most recent title 
 -- updated to show only the most recent title
 SELECT COUNT(ut.title), ut.title
-INTO retiring_titles
+-- INTO retiring_titles
 FROM unique_titles as ut 
 GROUP BY ut.title
 ORDER BY COUNT(ut.title) DESC;
@@ -71,15 +71,60 @@ ORDER BY COUNT(ut.title) DESC;
 -- 10. Export as mentorship_eligibilty.csv
 -- 11. Confirmation
 
+
 -- # of employees eligible for the mentorship program
 SELECT DISTINCT ON (e.emp_no), e.first_name, e.last_name, e.birth_date,
         de.from_date, de.to_date, t.title
 -- INTO mentorship_eligibilty
 FROM employees as e
-    INNER JOIN department_employees AS de
+    INNER JOIN dept_employee AS de
         ON (e.emp_no = de.emp_no)
     INNER JOIN titles AS t
         ON (e.emp_no = t.emp_no)
 WHERE (de.to_date = '9999-01-01')
     AND (e.birth_date BETWEEN '1965-01-01' AND '1965-12-31')
 ORDER BY e.emp_no ASC;
+
+
+-- Delivery 3:
+-- ADDITIONAL QUERY 1, 2 & 3
+
+
+-- 1. # of employees eligible for the mentorship program
+SELECT DISTINCT ON (e.emp_no) e.first_name, e.last_name, e.birth_date,
+        de.from_date, de.to_date, t.title
+-- INTO mentorship_eligibilty
+FROM employees as e
+    INNER JOIN dept_employee AS de
+        ON (e.emp_no = de.emp_no)
+    INNER JOIN titles AS t
+        ON (e.emp_no = t.emp_no)
+WHERE (de.to_date = '9999-01-01')
+    AND (e.birth_date BETWEEN '1961-01-01' AND '1965-12-31')
+ORDER BY e.emp_no ASC;
+
+
+-- 2. # of employees eligible for the mentorship program
+SELECT DISTINCT ON (e.emp_no) e.first_name, e.last_name, e.birth_date,
+        de.from_date, de.to_date, t.title
+-- INTO mentorship_eligibilty
+FROM employees as e
+    INNER JOIN dept_employee AS de
+        ON (e.emp_no = de.emp_no)
+    INNER JOIN titles AS t
+        ON (e.emp_no = t.emp_no)
+WHERE (de.to_date = '9999-01-01')
+    AND (e.birth_date BETWEEN '1963-01-01' AND '1965-12-31')
+ORDER BY e.emp_no ASC;
+
+
+-- 3. # of retiring employees by title, unique title
+SELECT e.emp_no, e.first_name, e.last_name,
+        t.title, t.from_date, t.to_date
+-- INTO retirement_titles
+FROM employees as e 
+INNER JOIN titles as t 
+ON (e.emp_no = t.emp_no)
+WHERE birth_date BETWEEN '1956-01-01' AND '1960-12-31'
+    AND e.to_date = '9999-01-01'
+ORDER BY t.emp_no ASC, to_date DESC;
