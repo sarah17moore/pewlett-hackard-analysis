@@ -1,5 +1,5 @@
-# pewlett-hackard-analysis
-A classwork example of building and running queries against a SQL database
+# Employee Database Analysis with SQL
+A classwork example of building and running queries against a SQL database to retrieve (fake) employee information.
 
 ---
 
