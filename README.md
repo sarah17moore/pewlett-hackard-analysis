@@ -11,6 +11,14 @@ The queries in employee_database_challenge.sql will determine the number of reti
 
 ---
 
+# Images
+First, I planned the connections between the csv data files to prepare before loading the data into SQL:
+![DB mapping image](/Queries/EmployeeDB.png)
+
+After loading the data in SQL, I joined tables and made queries to find a list of retired employees:
+![DB mapping image](/Queries/retirees1.png)
+![DB mapping image](/Queries/retirees2.png)
+
 # Results
 
 * Based on unique_titles.csv: Based on our query, 72,459 employees will be eligible for retirement. 
